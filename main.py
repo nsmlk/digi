@@ -7,7 +7,6 @@ import time
 
 
 # получение токена
-
 def get_token():
    headers = {
        'Content-Type': "application/json",
@@ -19,7 +18,7 @@ def get_token():
    sign = sha256(('api key' + str(round(timestamp))).encode('utf-8')).hexdigest()
 
    token_json_request = {
-       "seller_id": 461064,
+       "seller_id": id,
        "timestamp": timestamp,
        "sign": sign
    }
@@ -28,9 +27,7 @@ def get_token():
 
    return json.loads(req.text).get('token')
 
-
 # плучение словаря с продуктами продавца
-
 def get_products_list(tk):
    headers = {
        'Content-Type': "application/json",
@@ -38,7 +35,7 @@ def get_products_list(tk):
    }
 
    products_json_request = {
-       "id_seller": 461064,
+       "id_seller": id,
        "order_col": "cntsell",
        "order_dir": "desc",
        "rows": 2000,
@@ -58,9 +55,7 @@ products_list = get_products_list(get_token())
     # print(products_list, file=file)
 # print(products_list)
 
-
 # получение нужной информации по каждому продукту
-
 def get_products_info(products_list):
  result = []
  for product in products_list:
@@ -81,7 +76,6 @@ print(get_products_info(products_list))
 # with open("clean_products.txt", "w") as file:
 #         print(products, file=file)
 
-
 # подсчет стоимости стока 
 clean_products_list = get_products_info(products_list)
 
@@ -96,8 +90,6 @@ def calculate_total_sum(clean_products_list):
 
 print(calculate_total_sum(clean_products_list))
 
-
 def main():
-
-    if __name__ == '__main__':
-        main()
+   if __name__ == '__main__':
+   main()
